@@ -1,44 +1,34 @@
-const butInstall = document.getElementById('buttonInstall');
-let deferredPrompt;
+const butInstall = document.getElementById("buttonInstall");
 
-// Logic for installing the PWA
-// Add an event handler to the `beforeinstallprompt` event
 window.addEventListener('beforeinstallprompt', (event) => {
-  // Prevent the default browser install prompt
-  event.preventDefault();
+    console.log('hit')
+    console.log("event" + event)
+    event.preventDefault();
+    // Store the triggered events
+    window.deferredPrompt = event;
 
-  // Store the event for later use
-  deferredPrompt = event;
-
-  // Show your custom install button or UI element
-  butInstall.style.display = 'block';
+    // Remove the hidden class from the button.
+    butInstall.classList.toggle('hidden', false);
 });
 
-// Implement a click event handler on the `butInstall` element
 butInstall.addEventListener('click', async () => {
-  if (deferredPrompt) {
-    // Show the browser's install prompt
-    deferredPrompt.prompt();
-
-    // Wait for the user to respond to the prompt
-    const choiceResult = await deferredPrompt.userChoice;
-
-    if (choiceResult.outcome === 'accepted') {
-      console.log('User accepted the install prompt');
-    } else {
-      console.log('User dismissed the install prompt');
+    const promptEvent = window.deferredPrompt;
+    // console.log(promptEvent)
+    if (!promptEvent) {
+        return;
     }
 
-    // Reset the deferredPrompt
-    deferredPrompt = null;
-  }
+    // Show prompt
+    promptEvent.prompt();
 
-  // Hide the install button
-  butInstall.style.display = 'none';
+    // Reset the deferred prompt variable, it can only be used once.
+    window.deferredPrompt = null;
+
+    butInstall.classList.toggle('hidden', true);
 });
 
-// Add a handler for the `appinstalled` event
 window.addEventListener('appinstalled', (event) => {
-  // This event is triggered after the PWA is successfully installed
-  console.log('PWA was installed');
-});
+    // Clear prompt
+    console.log('install hit')
+    window.deferredPrompt = null;
+}); 
