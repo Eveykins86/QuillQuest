@@ -30,7 +30,7 @@ Run the development server to launch JATE.
 
 `npm run start:dev`
 
-Open your browser and navigate to http://localhost:3000 to access JATE.
+Open your browser and navigate to http://localhost:3003 to access JATE.
 Get ready to experience a powerful and reliable text editor like never before with JATE.
 
 ## Contribution
