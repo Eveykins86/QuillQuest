@@ -12,7 +12,7 @@
     "client": "cd client && npm start"
   },
   "keywords": [],
-  "author": "esbev",
+  "author": "",
   "license": "MIT",
   "dependencies": {
     "babel": "^6.23.0",
